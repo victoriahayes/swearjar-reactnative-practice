@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { JarPage } from './components/JarPage.component';
 
-export default class App extends React.Component {
+export class App extends React.Component {
   render() {
     return (
       <View style={styles.body}>

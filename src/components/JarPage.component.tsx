@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { NavigationProps } from 'src/interfaces/NavigationProps.interface';
 
-class JarPage extends React.Component<any, JarState> {
-    constructor(props: any) {
+class JarPage extends React.Component<NavigationProps, JarState> {
+    constructor(props: NavigationProps) {
         super(props);
         this.state = {
             jarTotal: 0.0,
@@ -30,7 +31,7 @@ class JarPage extends React.Component<any, JarState> {
             />
             <Button
                 title="View History"
-                onPress={ () => {}}
+                onPress={ () => { this.props.navigation.navigate('History');}}
                 testID="history-button"
             />
         </View>)

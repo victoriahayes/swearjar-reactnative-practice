@@ -1,20 +1,21 @@
-import React from 'react';
 import {
-  View,
   StyleSheet,
-  Text
 } from 'react-native';
+import 'react-native-gesture-handler'
 import { JarPage } from './components/JarPage.component';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createAppContainer} from 'react-navigation';
+import {HistoryPage} from './components/HistoryPage.component';
 
-export class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.body}>
-        <JarPage/>
-      </View>
-    );
-  };
-}
+const AppNavigator = createStackNavigator(
+  {
+    Home: JarPage,
+    History: HistoryPage
+  },
+  {initialRouteName: 'Home'}
+);
+
+export const AppContainer = createAppContainer(AppNavigator);
 
 const styles = StyleSheet.create({
   body: {

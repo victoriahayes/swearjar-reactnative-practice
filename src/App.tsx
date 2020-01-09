@@ -4,12 +4,13 @@ import {
   StyleSheet,
   Text
 } from 'react-native';
+import { JarPage } from './components/JarPage.component';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.body}>
-        <Text style={styles.text}>Hello World.</Text>
+        <JarPage/>
       </View>
     );
   };

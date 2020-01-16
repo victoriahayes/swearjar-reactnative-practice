@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationProps} from '../interfaces/NavigationProps.interface';
-import { View, TextInput, Text, StyleSheet, Platform, Button } from 'react-native';
+import { SwearJarRequest } from '../interfaces/SwearJarModel.interface.component';
+import { View, TextInput, Text, StyleSheet, Button } from 'react-native';
+import { CreatePageState } from 'src/interfaces/ApplicationState.interface';
 
 export class CreatePage extends React.Component<NavigationProps, CreatePageState> {
     constructor(props: NavigationProps) {
@@ -63,6 +65,13 @@ export class CreatePage extends React.Component<NavigationProps, CreatePageState
         </View>);
     }
 
+    saveSwearJar() {
+        const swearJarRequest: SwearJarRequest = {
+            name: this.state.jarReason,
+            incrementer: parseFloat(this.state.jarIncrementer)
+        };
+    }
+
     styles = StyleSheet.create({
         horizontalLayout: {
             flexDirection: 'row',
@@ -89,14 +98,9 @@ export class CreatePage extends React.Component<NavigationProps, CreatePageState
         buttonStyle: {
             flex:1,
             alignItems: 'stretch',
-            alignSelf: 'stretch'
+            alignSelf: 'stretch',
+            fontSize: 24
         }
     });
 
-}
-
-export interface CreatePageState {
-    jarReason: string;
-    jarIncrementer: string;
-    jarDestination: string;
 }

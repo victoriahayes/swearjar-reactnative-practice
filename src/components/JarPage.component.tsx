@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { NavigationProps } from 'src/interfaces/NavigationProps.interface';
+import { JarPageState } from 'src/interfaces/ApplicationState.interface';
 
-class JarPage extends React.Component<NavigationProps, JarState> {
+class JarPage extends React.Component<NavigationProps, JarPageState> {
     constructor(props: NavigationProps) {
         super(props);
         this.state = {
@@ -42,13 +43,6 @@ class JarPage extends React.Component<NavigationProps, JarState> {
             />
         </View>)
     }
-}
-
-interface JarState {
-    jarTotal: number,
-    jarDestination: string,
-    jarReason: string,
-    jarIncrementer: number
 }
 
 const styles = StyleSheet.create({

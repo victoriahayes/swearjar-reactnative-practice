@@ -8,7 +8,8 @@ class JarPage extends React.Component<NavigationProps, JarState> {
         this.state = {
             jarTotal: 0.0,
             jarDestination: 'Test Organization',
-            jarReason: 'I keep swearing.'
+            jarReason: 'I keep swearing.',
+            jarIncrementer: 0.5
         };
     }
 
@@ -16,7 +17,7 @@ class JarPage extends React.Component<NavigationProps, JarState> {
         return (<View>
             <Button title="Add to Jar"
                 testID="add-to-jar"
-                onPress={() => { this.setState({jarTotal: (this.state.jarTotal + .5)});}}
+                onPress={() => { this.setState({jarTotal: (this.state.jarTotal + this.state.jarIncrementer)});}}
             />
             <Text style={styles.textStyle}>
                 <Text style={styles.mainText} testID="jar-total"> {'$' + this.state.jarTotal?.toFixed(2) + '\n'}</Text>
@@ -34,6 +35,11 @@ class JarPage extends React.Component<NavigationProps, JarState> {
                 onPress={ () => { this.props.navigation.navigate('History');}}
                 testID="history-button"
             />
+            <Button
+                title="Create New Jar"
+                onPress={ () => { this.props.navigation.navigate('Create');}}
+                testID="create-button"
+            />
         </View>)
     }
 }
@@ -41,7 +47,8 @@ class JarPage extends React.Component<NavigationProps, JarState> {
 interface JarState {
     jarTotal: number,
     jarDestination: string,
-    jarReason: string
+    jarReason: string,
+    jarIncrementer: number
 }
 
 const styles = StyleSheet.create({

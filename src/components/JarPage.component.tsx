@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Modal } from 'react-native';
 import { NavigationProps } from 'src/interfaces/NavigationProps.interface';
-import { JarPageState } from 'src/interfaces/ApplicationState.interface';
+import { JarPageState, CreatePageState } from 'src/interfaces/ApplicationState.interface';
+import { CreatePage } from './CreatePage.component';
+import { SwearJarRequest, SwearJarResponse } from 'src/interfaces/SwearJarModel.interface.component';
 
 class JarPage extends React.Component<NavigationProps, JarPageState> {
     constructor(props: NavigationProps) {
@@ -10,7 +12,8 @@ class JarPage extends React.Component<NavigationProps, JarPageState> {
             jarTotal: 0.0,
             jarDestination: 'Test Organization',
             jarReason: 'I keep swearing.',
-            jarIncrementer: 0.5
+            jarIncrementer: 0.5,
+            modalOpen: false
         };
     }
 
@@ -38,10 +41,38 @@ class JarPage extends React.Component<NavigationProps, JarPageState> {
             />
             <Button
                 title="Create New Jar"
-                onPress={ () => { this.props.navigation.navigate('Create');}}
+                onPress={ () => { this.setState({modalOpen: true })}}
                 testID="create-button"
             />
+
+            <Modal visible={this.state.modalOpen}>
+                <CreatePage
+                    closeAction = {(jarData: CreatePageState) => { 
+                        this.setState({modalOpen: false});
+                        this.saveJar(jarData)
+                    }}
+                />
+            </Modal>
         </View>)
+    }
+
+    saveJar(jarData: CreatePageState) {
+        const request: SwearJarRequest = {
+            name: jarData.jarReason,
+            incrementer: parseFloat(jarData.jarIncrementer)
+        };
+
+        fetch('https://swearjarbackend.azurewebsites.net/swear-jar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        }).then((resp) => {
+            resp.json();   
+        }).then((respBody) => {
+            
+        });
     }
 }
 

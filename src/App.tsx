@@ -6,13 +6,11 @@ import { JarPage } from './components/JarPage.component';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import {HistoryPage} from './components/HistoryPage.component';
-import {CreatePage} from './components/CreatePage.component';
 
 const AppNavigator = createStackNavigator(
   {
     Home: JarPage,
-    History: HistoryPage,
-    Create: CreatePage
+    History: HistoryPage
   },
   {initialRouteName: 'Home'}
 );

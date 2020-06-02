@@ -1,5 +1,5 @@
-import { NavigationStackProp } from "react-navigation-stack";
+import {NavigationStackProp} from 'react-navigation-stack';
 
 export interface NavigationProps {
-    navigation: NavigationStackProp
+  navigation: NavigationStackProp;
 }

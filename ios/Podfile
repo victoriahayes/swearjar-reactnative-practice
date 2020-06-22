@@ -39,6 +39,8 @@ target 'SwearJar' do
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
+  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
+
   target 'SwearJarTests' do
     inherit! :search_paths
     # Pods for testing

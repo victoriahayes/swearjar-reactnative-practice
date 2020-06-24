@@ -32,6 +32,7 @@ class JarPage extends React.Component<NavigationProps, JarState> {
             },
 
             popInitialNotification: true,
+
            
             requestPermissions: Platform.OS === 'ios',
           });
@@ -63,10 +64,10 @@ class JarPage extends React.Component<NavigationProps, JarState> {
     }
 
     payOut = () => {
-        console.log('here')
         PushNotification.localNotification({
             title: "Swear Jar Cashed in",
-            message: `${this.state.jarTotal} sent to ${this.state.jarDestination}`
+            message: `${this.state.jarTotal} sent to ${this.state.jarDestination}`,
+            playSound: false
         });
 
         this.setState({jarTotal: 0.0});
@@ -77,6 +78,7 @@ class JarPage extends React.Component<NavigationProps, JarState> {
             //... You can use all the options from localNotifications
             message: "My Notification Message", // (required)
             date: new Date(Date.now() + 60 * 1000), // in 60 secs
+            playSound: false
           });
     }
 }

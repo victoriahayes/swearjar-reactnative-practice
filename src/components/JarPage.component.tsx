@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Platform } from 'react-native';
+import { View, Text, Button, StyleSheet, Platform, Alert } from 'react-native';
 import { NavigationProps } from 'src/interfaces/NavigationProps.interface';
 
 import PushNotification from 'react-native-push-notification';
@@ -22,11 +22,7 @@ class JarPage extends React.Component<NavigationProps, JarState> {
             // (required) Called when a remote is received or opened, or local notification is opened
             onNotification: function (notification: any) {
               console.log("NOTIFICATION:", notification);
-           
-              // process the notification
-           
-              // (required) Called when a remote is received or opened, or local notification is opened
-              //notification.finish(PushNotificationIOS.FetchResult.NoData);
+              Alert.alert(notification.title, notification.message);
             },
            
             permissions: {

@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Platform, Alert } from 'react-native';
 import { NavigationProps } from 'src/interfaces/NavigationProps.interface';
+
+import PushNotification from 'react-native-push-notification';
 
 class JarPage extends React.Component<NavigationProps, JarState> {
     constructor(props: NavigationProps) {
@@ -10,6 +12,30 @@ class JarPage extends React.Component<NavigationProps, JarState> {
             jarDestination: 'Test Organization',
             jarReason: 'I keep swearing.'
         };
+
+        PushNotification.configure({
+            // (optional) Called when Token is generated (iOS and Android)
+            onRegister: function (token) {
+              console.log("TOKEN:", token);
+            },
+           
+            // (required) Called when a remote is received or opened, or local notification is opened
+            onNotification: function (notification: any) {
+              console.log("NOTIFICATION:", notification);
+              Alert.alert(notification.title, notification.message);
+            },
+           
+            permissions: {
+              alert: true,
+              badge: true,
+              sound: true,
+            },
+
+            popInitialNotification: true,
+
+           
+            requestPermissions: Platform.OS === 'ios',
+          });
     }
 
     render() {
@@ -26,7 +52,7 @@ class JarPage extends React.Component<NavigationProps, JarState> {
                 <Text style={styles.subHeader} testID="jar-reason"> { this.state.jarReason }</Text>
             </Text>
             <Button title="Pay out"
-                onPress={() => {this.setState({jarTotal: 0.0});}}
+                onPress={() => this.payOut()}
                 testID="empty-jar"
             />
             <Button
@@ -35,6 +61,25 @@ class JarPage extends React.Component<NavigationProps, JarState> {
                 testID="history-button"
             />
         </View>)
+    }
+
+    payOut = () => {
+        PushNotification.localNotification({
+            title: "Swear Jar Cashed in",
+            message: `${this.state.jarTotal} sent to ${this.state.jarDestination}`,
+            playSound: false
+        });
+
+        this.setState({jarTotal: 0.0});
+    }
+
+    pushFuture = () => {
+        PushNotification.localNotificationSchedule({
+            //... You can use all the options from localNotifications
+            message: "My Notification Message", // (required)
+            date: new Date(Date.now() + 60 * 1000), // in 60 secs
+            playSound: false
+          });
     }
 }
 
